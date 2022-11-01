@@ -1,0 +1,81 @@
+public class Main
+{
+        class Node {
+        int key;
+         Node left, right;
+ 
+         public Node(int item)
+         {
+            key = item;
+            left = right = null;
+         }
+       }
+ 
+        Node root;
+        static int min;
+        Main() { root = null; }
+ 
+        void insert(int key){
+                root = insertRec(root,key);
+        }
+ 
+        Node insertRec(Node root, int key)
+        {
+ 
+        if (root == null) {
+            root = new Node(key);
+            return root;
+        }
+ 
+        else if (key < root.key)
+            root.left = insertRec(root.left, key);
+        else if (key > root.key)
+            root.right = insertRec(root.right, key);
+ 
+        return root;
+       }
+ 
+         static int max ;
+        public void solve(Node root){
+        if (root == null)
+            return;
+ 
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+ 
+        while (!queue.isEmpty()) {
+ 
+            int n = queue.size();
+ 
+            for (int i = 1; i <= n; i++) {
+                Node temp = queue.poll();
+ 
+                if (i == 1)
+                    System.out.print(temp.key + " ");
+ 
+                if (temp.left != null)
+                    queue.add(temp.left);
+ 
+                if (temp.right != null)
+                    queue.add(temp.right);
+            }
+        }          
+        }
+ 
+	public static void main (String[] args) throws java.lang.Exception
+	{
+	      Scanner sc = new Scanner(System.in);
+                Main tree = new Main();
+               int n = sc.nextInt();
+ 
+                for(int i =1; i<=n;i++){
+                int k = sc.nextInt();
+                tree.insert(k);
+                }
+ 
+                max = 0;
+               tree.solve(tree.root);
+	}
+ 
+ 
+}
